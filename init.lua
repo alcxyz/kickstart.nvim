@@ -98,6 +98,9 @@ vim.g.have_nerd_font = false
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 
+--- Obsidian issue fix
+vim.opt_local.conceallevel = 2
+
 -- Make line numbers default
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
@@ -231,6 +234,7 @@ require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   'fabridamicelli/cronex.nvim',
+  'sindrets/diffview.nvim',
 
   {
       "kdheepak/lazygit.nvim",
@@ -260,12 +264,52 @@ require('lazy').setup({
 
         -- Only one of these is needed.
         "nvim-telescope/telescope.nvim", -- optional
-        "ibhagwan/fzf-lua",              -- optional
-        "echasnovski/mini.pick",         -- optional
       },
       config = true
   },
 
+  {
+      "lukas-reineke/indent-blankline.nvim",
+      main = "ibl",
+      ---@module "ibl"
+      ---@type ibl.config
+      opts = {},
+  },
+
+  {
+      "folke/zen-mode.nvim",
+      opts = {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      },
+  },
+
+  {
+      "epwalsh/obsidian.nvim",
+      version = "*",  -- recommended, use latest release instead of latest commit
+      lazy = true,
+      ft = "markdown",
+      -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
+      -- event = {
+      --   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
+      --   -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/*.md"
+      --   -- refer to `:h file-pattern` for more examples
+      --   "BufReadPre path/to/my-vault/*.md",
+      --   "BufNewFile path/to/my-vault/*.md",
+      -- },
+      dependencies = {
+        "nvim-lua/plenary.nvim",
+      },
+      opts = {
+        workspaces = {
+          {
+            name = "personal",
+            path = "~/git/obsidian-vault",
+          },
+        },
+      },
+  },
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
