@@ -1,22 +1,15 @@
 return {
   {
-    'folke/tokyonight.nvim',
+    'catppuccin/nvim',
+    name = 'catppuccin',
     priority = 1000,
-    config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require('tokyonight').setup {
-        styles = {
-          comments = { italic = false },
-        },
-      }
-      vim.cmd.colorscheme 'tokyonight-night'
+    opts = {
+      flavour = 'mocha',
+      no_italic = true,
+    },
+    config = function(_, opts)
+      require('catppuccin').setup(opts)
+      vim.cmd.colorscheme 'catppuccin'
     end,
-  },
-
-  -- base16 dankcolors theme — loaded but not activated on startup.
-  -- Activated dynamically when matugen rewrites this file via the file watcher.
-  {
-    'RRethy/base16-nvim',
-    lazy = true,
   },
 }
